@@ -1,31 +1,36 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
-
+owner: zabuno
+repo: status
+skipDeleteIssues: true
+skipDescriptionUpdate: true
+skipHomepageUpdate: true
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
-
+  - name: Website
+    url: https://zabuno.com/
+  - name: Application health
+    url: https://zabuno.com/up
+  - name: Guest menu
+    url: https://zabuno.com/restaurant/zabuno-zabuno/menu/sm8ay3mg6f
+  - name: Sign in page
+    url: https://zabuno.com/login
+  - name: Pricing
+    url: https://zabuno.com/pricing
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  # Switch to cname: status.zabuno.com after its DNS record is verified.
+  baseUrl: /status
+  name: Zabuno Status
+  theme: night
+  introTitle: "Zabuno service status"
+  introMessage: >-
+    Independent availability checks for Zabuno, hosted separately from the application.
+    This history starts with the first recorded check. Endpoint availability does not
+    prove a successful sign-in or payment, and is not a contractual SLA.
   navbar:
     - title: Status
-      href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
-
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+      href: /status/
+    - title: Zabuno
+      href: https://zabuno.com
+commitMessages:
+  readmeContent: "Update status summary [skip ci] [upptime]"
+  summaryJson: "Update status summary data [skip ci] [upptime]"
+  statusChange: "$SITE_NAME is $STATUS ($RESPONSE_CODE in $RESPONSE_TIME ms) [skip ci] [upptime]"
+  graphsUpdate: "Update graphs [skip ci] [upptime]"
