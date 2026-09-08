@@ -1,0 +1,86 @@
+name: Zabuno status
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+    - cron: '17 1 * * *'
+  push:
+    branches: [master]
+    paths:
+      - .upptimerc.yml
+      - .github/workflows/status.yml
+      - assets/**
+  workflow_dispatch:
+
+permissions: {}
+concurrency:
+  group: zabuno-status
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+          fetch-depth: 0
+      - name: Record endpoint availability and response time
+        uses: upptime/uptime-monitor@v1.44.0
+        with:
+          command: response-time
+        env:
+          GH_PAT: ${{ github.token }}
+          SECRETS_CONTEXT: '{}'
+      - name: Generate current status summary
+        uses: upptime/uptime-monitor@v1.44.0
+        with:
+          command: readme
+        env:
+          GH_PAT: ${{ github.token }}
+
+  build:
+    needs: measure
+    if: github.event_name != 'schedule' || github.event.schedule == '17 1 * * *'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Generate response graphs
+        uses: upptime/uptime-monitor@v1.44.0
+        with:
+          command: graphs
+        env:
+          GH_PAT: ${{ github.token }}
+      - name: Generate static status site
+        uses: upptime/uptime-monitor@v1.44.0
+        with:
+          command: site
+        env:
+          GH_PAT: ${{ github.token }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/status-page/__sapper__/export/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish status site
+        id: deployment
+        uses: actions/deploy-pages@v4
