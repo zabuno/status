@@ -22,8 +22,8 @@ status-website:
   introTitle: "Zabuno service status"
   introMessage: >-
     Independent availability checks for Zabuno, hosted separately from the application.
-    This history starts with the first recorded check. Endpoint availability does not
-    prove a successful sign-in or payment, and is not a contractual SLA.
+    Measurements started on 8 September 2026; percentages cover only the recorded period.
+    Endpoint availability does not prove a successful sign-in or payment, and is not a contractual SLA.
   navbar:
     - title: Status
       href: /status/
