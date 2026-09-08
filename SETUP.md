@@ -31,3 +31,9 @@ Kaynaklar:
 - https://upptime.js.org/docs/get-started/
 - https://upptime.js.org/docs/configuration/
 - https://docs.github.com/en/actions/tutorials/authenticate-with-github_token
+
+İlk kurulum ölçümleri HTTP 200 iken özetin yanlış down demesi giderildi:
+Upptime durum hesaplayıcısı commit başındaki $PREFIX alanını gerektiriyor.
+Ayrıca ad içinde " in " bulunması yanıt süresi ayrıştırmasını bozduğundan
+Sign-in page kullanılır. İlk hatalı özet Git geçmişinde korunur; hizmet
+kesintisi kanıtı değildir. Güncel kabul sonraki gerçek ölçümle yapılır.
